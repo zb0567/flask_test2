@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %} index {% endblock %}
+{% block head %}
+    <script  type=text/javascript src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
+{#    <script  type=text/javascript src="{{ url_for('static', filename='js/moment-with-locales.min.js') }}"></script>#}
+    {{ super() }}
+    <style></style>
+{#    {{ moment.include_jquery() }}#}
+    {{ moment.include_moment() }}
+    {{ moment.lang('zh-cn') }}
+{#    # 引入moment#}
+{% endblock %}
+{% block body %}
+    {{ name }} {{ current_time }}
+    <div>
+        {{ moment(current_time).format('LLL') }}
+        {{ moment(current_time).format('YYYY-MM-DD') }}
+{#        {{ moment(current_time, 'YYYY-MM-DD') }}#}
+        {{ moment(current_time).fromNow(refresh=True) }}
+        {{ moment().fromTime(current_time) }}
+    </div>
+    {% for message in get_flashed_messages() %}
+        <div><button>close</button>
+            {{ message }}</div>
+
+    {% endfor %}
+    <div>
+        {% if name %}{{ name }}{% else %}Stranger{% endif %}
+        <form method="post">
+            {{ form.hidden_tag() }}
+{#            {{form.csrf_token}}#}
+            {{ form.username.label }}{{ form.username(id='1') }}
+            {{ form.password }}
+            {{ form.submit() }}
+        </form>
+    </div>
+{% endblock %}

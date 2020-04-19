@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+      <div>
+        <form method="post">
+            {{ form.hidden_tag() }}
+{#            {{form.csrf_token}}#}
+            {{ form.name.label }}{{ form.name}}
+            {{ form.dep }}
+            {{ form.beizhu }}
+            {{ form.submit() }}
+        </form>
+    </div>
+{% endblock %}

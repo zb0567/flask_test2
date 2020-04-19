@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script  type=text/javascript src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
+{#    <script  type=text/javascript src="{{ url_for('static', filename='js/moment-with-locales.min.js') }}"></script>#}
+    {{ super() }}
+{#    {{ moment.include_jquery() }}#}
+    {{ moment.include_moment() }}
+    {{ moment.lang('zh-cn') }}
+{#    # 引入moment#}
+    {#    # 引入pagedown 富文本#}
+    {{ pagedown.include_pagedown() }}
+{% endblock %}
+{% block body %}
+    hello,
+    {% if current_user.is_authenticated %}
+        {{ current_user.username }}
+        <a href="{{ url_for('auth.logout') }}">登出</a>
+    {% else %}
+        Stranger
+        <a href="{{ url_for('auth.login') }}">登录</a>
+    {% endif %}
+    <div>
+        {% if current_user.can(Permission.WRITE_ARTICLES) %}
+            <form  method="post">     {{ form.hidden_tag() }}       {{ form.body }}
+                {{ form.submit() }}</form>
+        {% endif %}
+    </div>
+    {% include '_posts.html' %}
+    {% import "_macros.html" as macros %}
+    <div>
+    {{ macros.pagination_widget(pagination,'.index') }}
+    </div>
+{% endblock %}

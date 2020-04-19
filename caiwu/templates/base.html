@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}--test</title>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+{% endblock %}
+{% if current_user.is_authenticated %}
+    <li>
+    <a href="{{ url_for('main.user',username=current_user.username) }}">个人资料</a>
+    </li>
+{% endif %}
+</body>
+</html>

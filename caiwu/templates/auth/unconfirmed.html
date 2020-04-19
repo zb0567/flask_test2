@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+    {% for message in get_flashed_messages() %}
+        <div>
+            <button>close</button>
+            {{ message }}</div>
+
+    {% endfor %}
+{% block body %}
+    {{ current_user.username }}
+    <a href="{{ url_for('auth.confirm',token=token,_external=True) }}">激活</a>
+{% endblock %}

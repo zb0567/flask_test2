@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Flasky-Login{% endblock %}
+{% block body %}
+    login
+      {% for message in get_flashed_messages() %}
+        <div><button>close</button>
+            {{ message }}</div>
+
+    {% endfor %}
+     <div>
+        <form method="post">
+            {{ form.hidden_tag() }}
+{#            {{form.csrf_token}}#}
+            {{ form.username.label }}{{ form.username(id='1') }}
+            {{ form.password }}
+            {{ form.remember_me }}
+            {{ form.submit() }}
+        </form>
+    </div>
+    <p>新用户
+    <a href="{{url_for('auth.register')}}">注册</a> </p>
+{% endblock %}
